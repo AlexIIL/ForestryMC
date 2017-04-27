@@ -12,8 +12,8 @@ package forestry.greenhouse.gui;
 
 import java.io.IOException;
 
+import forestry.api.climate.ImmutableClimateState;
 import forestry.api.core.CamouflageManager;
-import forestry.core.climate.ClimateInfo;
 import forestry.core.config.Constants;
 import forestry.core.gui.GuiForestryTitled;
 import forestry.core.gui.TextLayoutHelper;
@@ -51,7 +51,7 @@ public class GuiGreenhouse extends GuiForestryTitled<ContainerGreenhouse> {
 	}
 	
 	public boolean hasFields(){
-		return controller != null && controller.getControlClimate() != ClimateInfo.MAX;
+		return controller != null && controller.getControlClimate() != ImmutableClimateState.MAX;
 	}
 
 	@Override

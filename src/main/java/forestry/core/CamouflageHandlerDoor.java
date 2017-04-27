@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -31,7 +32,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class CamouflageHandlerDoor implements ICamouflageItemHandler {
-
+	
+	@Override
+	public boolean canRenderInLayer(BlockRenderLayer layer) {
+		return BlockRenderLayer.SOLID == layer;
+	}
+	
 	@Override
 	public boolean canHandle(ItemStack stack) {
 		return stack.getItem() instanceof ItemDoor;

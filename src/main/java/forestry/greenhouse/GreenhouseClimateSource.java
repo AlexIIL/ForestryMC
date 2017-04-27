@@ -10,21 +10,9 @@
  ******************************************************************************/
 package forestry.greenhouse;
 
-import forestry.api.climate.EnumClimatiserModes;
-import forestry.api.climate.EnumClimatiserTypes;
-import forestry.api.climate.IClimateInfo;
-import forestry.api.climate.IClimatePosition;
-import forestry.api.climate.IClimateRegion;
-import forestry.api.climate.IClimatiserDefinition;
-import forestry.api.multiblock.IMultiblockController;
-import forestry.api.multiblock.IMultiblockLogic;
-import forestry.core.climate.ClimateSource;
-import forestry.greenhouse.multiblock.IGreenhouseControllerInternal;
-import forestry.greenhouse.tiles.TileGreenhouseClimatiser;
-import net.minecraft.util.math.BlockPos;
-
-public class GreenhouseClimateSource<P extends TileGreenhouseClimatiser> extends ClimateSource<P> {
-
+public class GreenhouseClimateSource//<P extends TileGreenhouseClimatiser> extends ClimateSource<P> 
+{
+/*
 	private static final int COOLDOWN = 10;
 	private int currentCooldown;
 	
@@ -33,7 +21,7 @@ public class GreenhouseClimateSource<P extends TileGreenhouseClimatiser> extends
 	}
 
 	@Override
-	public boolean changeClimate(int tickCount, IClimateRegion region) {
+	public boolean changeClimate(int tickCount, IClimateContainer region) {
 		if (provider == null) {
 			return false;
 		}
@@ -54,28 +42,28 @@ public class GreenhouseClimateSource<P extends TileGreenhouseClimatiser> extends
 			float controlTemp = climateInfo.getTemperature();
 			float controlHum = climateInfo.getHumidity();
 			isActive = greenhouseInternal.canWork() && provider.canWork();
-			EnumClimatiserTypes type = definition.getType();
-			EnumClimatiserModes mode = definition.getMode();
+			EnumClimatiserType type = definition.getType();
+			EnumClimatiserMode mode = definition.getMode();
 			float maxChange = definition.getChange();
 			if (isActive) {
-				if (canChange(type, EnumClimatiserTypes.TEMPERATURE)) {
+				if (canChange(type, EnumClimatiserType.TEMPERATURE)) {
 					if (region.getAverageTemperature() < controlTemp) {
-						if (!canChange(mode, EnumClimatiserModes.POSITIVE)) {
+						if (!canChange(mode, EnumClimatiserMode.POSITIVE)) {
 							isActive = false;
 						}
 					} else if (region.getAverageTemperature() > controlTemp) {
-						if (!canChange(mode, EnumClimatiserModes.NEGATIVE)) {
+						if (!canChange(mode, EnumClimatiserMode.NEGATIVE)) {
 							isActive = false;
 						}
 					}
 				}
-				if (canChange(type, EnumClimatiserTypes.HUMIDITY)) {
+				if (canChange(type, EnumClimatiserType.HUMIDITY)) {
 					if (region.getAverageTemperature() < controlHum) {
-						if (!canChange(mode, EnumClimatiserModes.POSITIVE)) {
+						if (!canChange(mode, EnumClimatiserMode.POSITIVE)) {
 							isActive = false;
 						}
 					} else if (region.getAverageTemperature() > controlHum) {
-						if (!canChange(mode, EnumClimatiserModes.NEGATIVE)) {
+						if (!canChange(mode, EnumClimatiserMode.NEGATIVE)) {
 							isActive = false;
 						}
 					}
@@ -92,27 +80,27 @@ public class GreenhouseClimateSource<P extends TileGreenhouseClimatiser> extends
 						if (distance > 0) {
 							change = (float) (maxChange / distance);
 						}
-						if (canChange(type, EnumClimatiserTypes.TEMPERATURE)) {
+						if (canChange(type, EnumClimatiserType.TEMPERATURE)) {
 							if (position.getTemperature() < controlTemp) {
-								if (canChange(mode, EnumClimatiserModes.POSITIVE)) {
+								if (canChange(mode, EnumClimatiserMode.POSITIVE)) {
 									position.addTemperature(Math.min(change, controlTemp - position.getTemperature()));
 									hasChange = true;
 								}
 							} else if (position.getTemperature() > controlTemp) {
-								if (canChange(mode, EnumClimatiserModes.NEGATIVE)) {
+								if (canChange(mode, EnumClimatiserMode.NEGATIVE)) {
 									position.addTemperature(-Math.min(position.getTemperature() - controlTemp, change));
 									hasChange = true;
 								}
 							}
 						}
-						if (canChange(type, EnumClimatiserTypes.HUMIDITY)) {
+						if (canChange(type, EnumClimatiserType.HUMIDITY)) {
 							if (position.getHumidity() < controlHum) {
-								if (canChange(mode, EnumClimatiserModes.POSITIVE)) {
+								if (canChange(mode, EnumClimatiserMode.POSITIVE)) {
 									position.addHumidity(Math.min(change, controlHum - position.getHumidity()));
 									hasChange = true;
 								}
 							} else if (position.getHumidity() > controlHum) {
-								if (canChange(mode, EnumClimatiserModes.NEGATIVE)) {
+								if (canChange(mode, EnumClimatiserMode.NEGATIVE)) {
 									position.addHumidity(-Math.min(position.getHumidity() - controlHum, change));
 									hasChange = true;
 								}
@@ -134,16 +122,16 @@ public class GreenhouseClimateSource<P extends TileGreenhouseClimatiser> extends
 		return hasChange;
 	}
 
-	protected boolean canChange(EnumClimatiserTypes climatiserType, EnumClimatiserTypes type) {
-		return type == climatiserType || climatiserType == EnumClimatiserTypes.BOTH;
+	protected boolean canChange(EnumClimatiserType climatiserType, EnumClimatiserType type) {
+		return type == climatiserType || climatiserType == EnumClimatiserType.BOTH;
 	}
 
-	protected boolean canChange(EnumClimatiserModes climatiserMode, EnumClimatiserModes mode) {
-		return mode == climatiserMode || climatiserMode == EnumClimatiserModes.BOTH;
+	protected boolean canChange(EnumClimatiserMode climatiserMode, EnumClimatiserMode mode) {
+		return mode == climatiserMode || climatiserMode == EnumClimatiserMode.BOTH;
 	}
 
 	protected IClimateInfo getClimateControl(IGreenhouseControllerInternal greenhouseInternal) {
 		return greenhouseInternal.getControlClimate();
-	}
+	}*/
 
 }

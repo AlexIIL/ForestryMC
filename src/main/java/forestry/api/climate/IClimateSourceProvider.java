@@ -5,14 +5,19 @@
  ******************************************************************************/
 package forestry.api.climate;
 
-import java.util.Set;
+import javax.annotation.Nullable;
 
 import forestry.api.core.ILocatable;
-import net.minecraft.util.math.BlockPos;
 
 public interface IClimateSourceProvider extends ILocatable {
 
+	/**
+	 * The climate source of this provider;
+	 */
 	IClimateSource getClimateSource();
 	
-	Set<BlockPos> getPositionsInRange();
+	@Nullable
+	IClimateContainer getContainer();
+	
+	void setContainer(@Nullable IClimateContainer container);
 }

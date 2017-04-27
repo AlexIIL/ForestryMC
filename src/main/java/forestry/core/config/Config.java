@@ -57,6 +57,9 @@ public class Config {
 	//Humus
 	public static int humusDegradeDelimiter = 3;
 	
+	//Greenhouse
+	public static int climateSourceRange = 9;
+	
 	// Genetics
 	public static boolean pollinateVanillaTrees = true;
 	public static float researchMutationBoostMultiplier = 1.5f;
@@ -78,8 +81,6 @@ public class Config {
 
 	// Performance
 	public static boolean enableBackpackResupply = true;
-	//public static int planterThrottle = 10;
-	//public static int harvesterThrottle = 200;
 
 	// Customization
 	private static boolean craftingBronzeEnabled = true;
@@ -187,6 +188,8 @@ public class Config {
 		generateBeehivesAmount = configCommon.getFloatLocalized("world.generate.beehives", "amount", generateBeehivesAmount, 0.0f, 10.0f);
 		generateBeehivesDebug = configCommon.getBooleanLocalized("world.generate.beehives", "debug", generateBeehivesDebug);
 
+		climateSourceRange = configCommon.getIntLocalized("greenhouse", "range", climateSourceRange, 1, 25);
+		
 		generateApatiteOre = configCommon.getBooleanLocalized("world.generate.ore", "apatite", generateApatiteOre);
 		generateCopperOre = configCommon.getBooleanLocalized("world.generate.ore", "copper", generateCopperOre);
 		generateTinOre = configCommon.getBooleanLocalized("world.generate.ore", "tin", generateTinOre);

@@ -3,10 +3,10 @@ package forestry.core.network.packets;
 import java.io.IOException;
 
 import forestry.api.climate.IClimateControlProvider;
-import forestry.api.climate.IClimateInfo;
+import forestry.api.climate.IClimateState;
+import forestry.api.climate.ImmutableClimateState;
 import forestry.api.multiblock.IMultiblockComponent;
 import forestry.api.multiblock.IMultiblockLogic;
-import forestry.core.climate.ClimateInfo;
 import forestry.core.network.ForestryPacket;
 import forestry.core.network.IForestryPacketHandlerServer;
 import forestry.core.network.IForestryPacketServer;
@@ -19,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class PacketUpdateClimateControl extends ForestryPacket implements IForestryPacketServer {
 	private final BlockPos pos;
-	private final IClimateInfo climateInfo;
+	private final IClimateState climateInfo;
 
 	public PacketUpdateClimateControl(IClimateControlProvider provider) {
 		pos = provider.getCoordinates();
@@ -59,7 +59,7 @@ public class PacketUpdateClimateControl extends ForestryPacket implements IFores
 			}
 
 			if (control != null) {
-				control.setControlClimate(new ClimateInfo(tmperature, humidity));
+				control.setControlClimate(new ImmutableClimateState(tmperature, humidity));
 			}
 		}
 	}

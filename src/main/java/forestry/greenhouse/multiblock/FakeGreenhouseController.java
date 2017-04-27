@@ -13,13 +13,12 @@ package forestry.greenhouse.multiblock;
 import java.util.Collections;
 import java.util.Set;
 
-import forestry.api.climate.IClimateInfo;
-import forestry.api.climate.IClimateRegion;
+import forestry.api.climate.IClimateContainer;
+import forestry.api.climate.ImmutableClimateState;
 import forestry.api.greenhouse.IInternalBlock;
-import forestry.api.lepidopterology.IButterfly;
 import forestry.api.multiblock.IGreenhouseComponent.Nursery;
 import forestry.api.multiblock.IGreenhouseComponent.Listener;
-import forestry.core.climate.ClimateInfo;
+import forestry.core.climate.FakeClimateContainer;
 import forestry.core.fluids.FakeTankManager;
 import forestry.core.fluids.ITankManager;
 import forestry.core.inventory.FakeInventoryAdapter;
@@ -84,10 +83,10 @@ public class FakeGreenhouseController extends FakeMultiblockController implement
 	public String getUnlocalizedType() {
 		return "for.multiblock.greenhouse.type";
 	}
-
+	
 	@Override
-	public IClimateRegion getRegion() {
-		return null;
+	public IClimateContainer getClimateContainer() {
+		return FakeClimateContainer.INSTANCE;
 	}
 
 	@Override
@@ -106,22 +105,16 @@ public class FakeGreenhouseController extends FakeMultiblockController implement
 	}
 
 	@Override
-	public IClimateInfo getControlClimate() {
-		return ClimateInfo.MAX;
-	}
-	
-	@Override
-	public void setControlClimate(IClimateInfo climateControl) {
-		
-	}
-	
-	@Override
 	public boolean spawnButterfly(Nursery nursery) {
 		return false;
 	}
 
 	@Override
-	public boolean spawnButterfly(IButterfly butterfly) {
-		return false;
+	public ImmutableClimateState getControlClimate() {
+		return ImmutableClimateState.MIN;
+	}
+
+	@Override
+	public void setControlClimate(ImmutableClimateState climateControl) {	
 	}
 }

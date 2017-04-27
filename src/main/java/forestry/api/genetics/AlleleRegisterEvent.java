@@ -1,6 +1,5 @@
 package forestry.api.genetics;
 
-import forestry.api.arboriculture.IAlleleFruit;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**

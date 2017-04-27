@@ -4,9 +4,9 @@ import com.google.common.base.Predicate;
 import com.google.common.primitives.Floats;
 
 import forestry.api.climate.IClimateControlProvider;
-import forestry.api.climate.IClimateInfo;
+import forestry.api.climate.IClimateState;
+import forestry.api.climate.ImmutableClimateState;
 import forestry.api.multiblock.IGreenhouseController;
-import forestry.core.climate.ClimateInfo;
 import forestry.core.gui.TextLayoutHelper;
 import forestry.core.network.packets.PacketUpdateClimateControl;
 import forestry.core.render.ColourProperties;
@@ -23,7 +23,7 @@ public class ClimateTextFields {
 	
 	public ClimateTextFields(IGreenhouseController controller, FontRenderer fontRenderer, int guiLeft, int guiTop) {
 		this.provider = controller;
-		IClimateInfo info = controller.getControlClimate();
+		IClimateState info = controller.getControlClimate();
 		
 		temperatureField = new GuiTextField(0, fontRenderer, guiLeft + 64, guiTop + 31, 50, 10);
 		temperatureField.setValidator(NUMBER_FILTER);
@@ -72,14 +72,14 @@ public class ClimateTextFields {
 	}
 	
 	public void setClimate(float temp){
-		IClimateInfo info = provider.getControlClimate();
+		IClimateState info = provider.getControlClimate();
 		setClimate(provider, temp, info.getHumidity());
 	}
 	
 	public void setClimate(IClimateControlProvider provider, float temp, float hum){
 		temperatureField.setText(Float.toString(temp));
 		humidityField.setText(Float.toString(hum));
-		provider.setControlClimate(new ClimateInfo(temp, hum));
+		provider.setControlClimate(new ImmutableClimateState(temp, hum));
 	}
 	
 	private static float parseField(GuiTextField field) {

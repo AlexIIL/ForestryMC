@@ -22,6 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,6 +31,11 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class CamouflageHandlerArbDoor implements ICamouflageItemHandler {
 
+	@Override
+	public boolean canRenderInLayer(BlockRenderLayer layer) {
+		return layer == BlockRenderLayer.CUTOUT;
+	}
+	
 	@Override
 	public boolean canHandle(ItemStack stack) {
 		return stack.getItem() instanceof ItemBlockWoodDoor;

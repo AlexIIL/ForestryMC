@@ -360,10 +360,11 @@ public abstract class BlockGreenhouse extends BlockStructure implements ISpriteR
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-		if (hasGlass()) {
+		BlockGreenhouseType type = getGreenhouseType();
+		if (type == BlockGreenhouseType.WINDOW || type == BlockGreenhouseType.WINDOW_UP) {
 			return layer == BlockRenderLayer.TRANSLUCENT;
 		}
-		return layer != BlockRenderLayer.TRANSLUCENT && layer != BlockRenderLayer.CUTOUT_MIPPED;
+		return true;
 	}
 
 	@Override

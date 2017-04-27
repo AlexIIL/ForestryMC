@@ -13,11 +13,13 @@ package forestry.api.core;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Interface for things, that have a location.
+ * Must not be named "getWorld" and "getCoordinates" to avoid 
+ * SpecialSource issue https://github.com/md-5/SpecialSource/issues/12
+ */
 public interface ILocatable {
 	BlockPos getCoordinates();
 
-	/**
-	 * Must not be named "getWorld" to avoid SpecialSource issue https://github.com/md-5/SpecialSource/issues/12
-	 */
 	World getWorldObj();
 }

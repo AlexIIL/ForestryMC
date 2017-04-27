@@ -12,10 +12,6 @@ package forestry.greenhouse.tiles;
 
 import javax.annotation.Nullable;
 
-import forestry.api.climate.EnumClimatiserModes;
-import forestry.api.climate.EnumClimatiserTypes;
-import forestry.api.climate.IClimatiserDefinition;
-import forestry.core.climate.ClimatiserDefinition;
 import forestry.greenhouse.GreenhouseClimateWindow;
 import forestry.greenhouse.PluginGreenhouse;
 import forestry.greenhouse.blocks.BlockGreenhouse;
@@ -28,7 +24,7 @@ import net.minecraft.util.math.BlockPos;
 public class TileGreenhouseWindow extends TileGreenhouseClimatiser {
 	@Nullable
 	private WindowMode mode;
-	private static final IClimatiserDefinition DEFINITION = new ClimatiserDefinition(0.001F, EnumClimatiserModes.BOTH, 5F, EnumClimatiserTypes.BOTH);
+	private static final IClimatiserDefinition DEFINITION = new ClimatiserDefinition(0.001F, EnumClimatiserMode.BOTH, 5F, EnumClimatiserType.BOTH);
 
 	public TileGreenhouseWindow() {
 		super(DEFINITION, new GreenhouseClimateWindow(20));

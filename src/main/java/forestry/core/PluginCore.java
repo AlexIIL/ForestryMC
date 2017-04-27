@@ -30,6 +30,7 @@ import forestry.core.blocks.BlockRegistryCore;
 import forestry.core.blocks.EnumResourceType;
 import forestry.core.circuits.CircuitRegistry;
 import forestry.core.circuits.SolderManager;
+import forestry.core.climate.ClimateFactory;
 import forestry.core.climate.ClimateManager;
 import forestry.core.commands.CommandPlugins;
 import forestry.core.commands.RootCommand;
@@ -122,6 +123,7 @@ public class PluginCore extends BlankForestryPlugin {
 
 		MultiblockManager.logicFactory = new MultiblockLogicFactory();
 		ForestryAPI.climateManager = new ClimateManager();
+		ForestryAPI.climateFactory = new ClimateFactory();
 
 		CamouflageManager.camouflageAccess = new CamouflageAccess();
 	}

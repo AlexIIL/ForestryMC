@@ -5,14 +5,13 @@
  ******************************************************************************/
 package forestry.api.climate;
 
-public interface IClimatiserDefinition {
+public interface IClimateFactory {
 
-	float getChange();
-
-	float getRange();
-
-	EnumClimatiserModes getMode();
-
-	EnumClimatiserTypes getType();
-
+	/**
+	 * @param climatedRegion
+	 * 
+	 * @return Creates a climate container.
+	 */
+	IClimateContainer createContainer(IClimatedRegion climatedRegion);
+	
 }

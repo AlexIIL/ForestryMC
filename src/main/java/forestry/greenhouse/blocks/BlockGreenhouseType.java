@@ -1,6 +1,7 @@
 package forestry.greenhouse.blocks;
 
 import javax.annotation.Nullable;
+
 import java.util.EnumMap;
 import java.util.Locale;
 
@@ -23,6 +24,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public enum BlockGreenhouseType {
 	PLAIN,
+	CONTROLLER,
+	CORNER,
 	GLASS(Material.GLASS),
 	//item, energy / fluid
 	HATCH_INPUT(true),

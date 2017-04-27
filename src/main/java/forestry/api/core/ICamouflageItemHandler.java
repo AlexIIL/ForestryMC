@@ -8,12 +8,15 @@ package forestry.api.core;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 public interface ICamouflageItemHandler {
 
+	boolean canRenderInLayer(BlockRenderLayer layer);
+	
 	boolean canHandle(ItemStack stack);
 
 	String getType();

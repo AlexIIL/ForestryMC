@@ -9,9 +9,15 @@ import forestry.api.core.ICamouflagedTile;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 
 public class CamouflageHandlerNone implements ICamouflageItemHandler {
 
+	@Override
+	public boolean canRenderInLayer(BlockRenderLayer layer) {
+		return false;
+	}
+	
 	@Override
 	public boolean canHandle(ItemStack stack) {
 		return true;

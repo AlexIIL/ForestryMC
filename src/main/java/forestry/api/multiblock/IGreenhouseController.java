@@ -7,13 +7,11 @@ package forestry.api.multiblock;
 
 import java.util.Set;
 
+import forestry.api.climate.IClimateContainer;
 import forestry.api.climate.IClimateControlProvider;
-import forestry.api.climate.IClimateRegion;
 import forestry.api.core.ICamouflageHandler;
 import forestry.api.greenhouse.IGreenhouseHousing;
 import forestry.api.greenhouse.IInternalBlock;
-import forestry.api.lepidopterology.IButterfly;
-import forestry.api.lepidopterology.IButterflyCocoon;
 
 public interface IGreenhouseController extends IMultiblockController, IGreenhouseHousing, ICamouflageHandler, IClimateControlProvider {
 	
@@ -28,12 +26,6 @@ public interface IGreenhouseController extends IMultiblockController, IGreenhous
 	 */
 	boolean spawnButterfly(IGreenhouseComponent.Nursery nursery);
 	
-	/**
-	 * @deprecated use {@link #spawnButterfly(IButterflyCocoon)}
-	 */
-	@Deprecated
-	boolean spawnButterfly(IButterfly butterfly);
-	
-	IClimateRegion getRegion();
+	IClimateContainer getClimateContainer();
 
 }

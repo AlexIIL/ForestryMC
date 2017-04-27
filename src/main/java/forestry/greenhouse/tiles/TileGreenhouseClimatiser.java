@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import forestry.api.climate.IClimateSource;
-import forestry.api.climate.IClimatiserDefinition;
 import forestry.api.multiblock.IGreenhouseComponent;
 import forestry.api.multiblock.IMultiblockController;
 import forestry.apiculture.network.packets.PacketActiveUpdate;

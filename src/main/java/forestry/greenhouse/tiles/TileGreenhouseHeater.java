@@ -10,14 +10,9 @@
  ******************************************************************************/
 package forestry.greenhouse.tiles;
 
-import forestry.api.climate.EnumClimatiserModes;
-import forestry.api.climate.EnumClimatiserTypes;
-import forestry.api.climate.IClimatiserDefinition;
-import forestry.core.climate.ClimatiserDefinition;
-
 public class TileGreenhouseHeater extends TileGreenhouseClimatiser {
 
-	private static final IClimatiserDefinition DEFINITION = new ClimatiserDefinition(0.015F, EnumClimatiserModes.POSITIVE, 5F, EnumClimatiserTypes.TEMPERATURE);
+	private static final IClimatiserDefinition DEFINITION = new ClimatiserDefinition(0.015F, EnumClimatiserMode.POSITIVE, 5F, EnumClimatiserType.TEMPERATURE);
 
 	public TileGreenhouseHeater() {
 		super(DEFINITION);

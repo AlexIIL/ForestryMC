@@ -7,7 +7,6 @@ package forestry.api.multiblock;
 
 import forestry.api.climate.IClimateControlProvider;
 import forestry.api.climate.IClimateSourceProvider;
-import forestry.api.climate.IClimatiserDefinition;
 import forestry.api.greenhouse.IGreenhouseListener;
 import forestry.api.lepidopterology.IButterflyCocoon;
 import forestry.api.lepidopterology.IButterflyNursery;
@@ -30,7 +29,6 @@ public interface IGreenhouseComponent<T extends IMultiblockLogicGreenhouse> exte
 	}
 
 	interface Climatiser extends IGreenhouseComponent, IClimateSourceProvider {
-		IClimatiserDefinition getDefinition();
 	}
 
 	interface Nursery extends IGreenhouseComponent, IButterflyNursery {

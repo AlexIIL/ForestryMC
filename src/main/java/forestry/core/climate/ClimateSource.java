@@ -10,39 +10,48 @@
  ******************************************************************************/
 package forestry.core.climate;
 
-import javax.annotation.Nullable;
-
-import forestry.api.climate.IClimateRegion;
+import forestry.api.climate.EnumClimatiserMode;
+import forestry.api.climate.EnumClimatiserType;
+import forestry.api.climate.IClimateContainer;
 import forestry.api.climate.IClimateSource;
-import forestry.api.climate.IClimateSourceProvider;
 
-public abstract class ClimateSource<P extends IClimateSourceProvider> implements IClimateSource {
-	@Nullable
-	protected P provider;
-	protected final int ticksForChange;
+public class ClimateSource implements IClimateSource {
+	
+	protected final float change;
+	protected final EnumClimatiserMode mode;
+	protected final float range;
+	protected final EnumClimatiserType type;
 
-	public ClimateSource(int ticksForChange) {
-		this.ticksForChange = ticksForChange;
-	}
-
-	public void setProvider(P provider) {
-		this.provider = provider;
-	}
-
-	@Override
-	public boolean changeClimate(int tickCount, IClimateRegion region) {
-		return false;
+	public ClimateSource(float change, EnumClimatiserMode mode, float range, EnumClimatiserType type) {
+		this.change = change;
+		this.mode = mode;
+		this.range = range;
+		this.type = type;
 	}
 
 	@Override
-	public int getTicksForChange(IClimateRegion region) {
-		return ticksForChange;
+	public float getChange() {
+		return change;
 	}
 
 	@Override
-	@Nullable
-	public IClimateSourceProvider getProvider() {
-		return provider;
+	public float getRange() {
+		return range;
+	}
+
+	@Override
+	public EnumClimatiserType getType() {
+		return type;
+	}
+
+	@Override
+	public EnumClimatiserMode getMode() {
+		return mode;
+	}
+
+	@Override
+	public boolean canWork(IClimateContainer container) {
+		return true;
 	}
 
 }

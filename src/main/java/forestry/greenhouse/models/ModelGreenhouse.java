@@ -11,7 +11,6 @@
 package forestry.greenhouse.models;
 
 import javax.annotation.Nullable;
-
 import forestry.api.core.CamouflageManager;
 import forestry.api.core.ICamouflageHandler;
 import forestry.api.core.ICamouflageItemHandler;
@@ -24,9 +23,12 @@ import forestry.core.tiles.TileUtil;
 import forestry.core.utils.CamouflageUtil;
 import forestry.greenhouse.blocks.BlockGreenhouse;
 import forestry.greenhouse.blocks.BlockGreenhouseType;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -79,35 +81,48 @@ public class ModelGreenhouse extends ModelBlockDefault<BlockGreenhouse, ModelGre
 		ItemStack camouflageStack = key.world != null ? CamouflageUtil.getCamouflageBlock(key.world, key.pos) : ItemStack.EMPTY;
 		IBlockAccess world = key.world;
 		BlockPos pos = key.pos;
-
+		BlockGreenhouseType greenhouseType = block.getGreenhouseType();
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
-		if(layer != BlockRenderLayer.CUTOUT){
-			if (!camouflageStack.isEmpty()) {
-				ICamouflageHandler camouflageHandler = CamouflageUtil.getCamouflageHandler(world, pos);
-				ICamouflagedTile camouflageTile = (ICamouflagedTile) TileUtil.getTile(world, pos, TileEntity.class);
-				ICamouflageItemHandler itemHandler = CamouflageManager.camouflageAccess.getHandlerFromItem(camouflageStack);
-				if (itemHandler != null && camouflageHandler != null && camouflageTile != null) {
-					Pair<IBlockState, IBakedModel> model = itemHandler.getModel(camouflageStack, camouflageHandler, camouflageTile);
-	
-					baker.addBakedModel(model.getLeft(), model.getRight());
-					baker.setParticleSprite(model.getRight().getParticleTexture());
-				}
-			}
-	
+		if(layer == null && (key.pos == null || key.state == null || key.world == null)){
 			//Bake the default blocks
-			else if (block.getGreenhouseType() == BlockGreenhouseType.GLASS) {
+			if (greenhouseType == BlockGreenhouseType.GLASS) {
 				TextureAtlasSprite glassSprite = BlockGreenhouseType.getSprite(BlockGreenhouseType.GLASS, null, null, world, pos);
-	
+
 				baker.addBlockModel(pos, BlockGreenhouseType.getSprite(BlockGreenhouseType.GLASS, null, null, world, pos), 100);
 				baker.setParticleSprite(glassSprite);
 			} else {
 				TextureAtlasSprite plainSprite = BlockGreenhouseType.getSprite(BlockGreenhouseType.PLAIN, null, null, world, pos);
-	
+
 				baker.addBlockModel(pos, BlockGreenhouseType.getSprite(BlockGreenhouseType.PLAIN, null, null, world, pos), 100);
 				baker.setParticleSprite(plainSprite);
 			}
-			//Only item model
-			if(key.pos == null || key.state == null || key.world == null){
+			if (block.getGreenhouseType().hasOverlaySprite) {
+				TextureAtlasSprite[] sprite = new TextureAtlasSprite[6];
+				for (EnumFacing facing : EnumFacing.VALUES) {
+					sprite[facing.ordinal()] = BlockGreenhouseType.getSprite(block.getGreenhouseType(), facing, key.state, world, pos);
+				}
+				baker.addBlockModel(pos, sprite, 101);
+			}
+		}else{
+			if(camouflageStack.isEmpty()){
+				if(greenhouseType == BlockGreenhouseType.GLASS){
+					camouflageStack = new ItemStack(Blocks.STAINED_GLASS, 1, EnumDyeColor.GREEN.getMetadata());
+				}else{
+					camouflageStack = new ItemStack(Blocks.BRICK_BLOCK);
+				}
+			}
+			Block camouflageBlock = Block.getBlockFromItem(camouflageStack.getItem());
+			ICamouflageHandler camouflageHandler = CamouflageUtil.getCamouflageHandler(world, pos);
+			ICamouflagedTile camouflageTile = (ICamouflagedTile) TileUtil.getTile(world, pos, TileEntity.class);
+			ICamouflageItemHandler itemHandler = CamouflageManager.camouflageAccess.getHandlerFromItem(camouflageStack);
+			if (itemHandler != null && camouflageHandler != null && camouflageTile != null) {
+				Pair<IBlockState, IBakedModel> model = itemHandler.getModel(camouflageStack, camouflageHandler, camouflageTile);
+				if(camouflageBlock != Blocks.AIR && camouflageBlock.canRenderInLayer(model.getLeft(), layer) || camouflageBlock == Blocks.AIR && itemHandler.canRenderInLayer(layer)){
+					baker.addBakedModel(model.getLeft(), model.getRight());
+					baker.setParticleSprite(model.getRight().getParticleTexture());
+				}
+			}
+			if(layer == BlockRenderLayer.CUTOUT){
 				if (block.getGreenhouseType().hasOverlaySprite) {
 					TextureAtlasSprite[] sprite = new TextureAtlasSprite[6];
 					for (EnumFacing facing : EnumFacing.VALUES) {
@@ -116,14 +131,7 @@ public class ModelGreenhouse extends ModelBlockDefault<BlockGreenhouse, ModelGre
 					baker.addBlockModel(pos, sprite, 101);
 				}
 			}
-		} else {
-			if (block.getGreenhouseType().hasOverlaySprite) {
-				TextureAtlasSprite[] sprite = new TextureAtlasSprite[6];
-				for (EnumFacing facing : EnumFacing.VALUES) {
-					sprite[facing.ordinal()] = BlockGreenhouseType.getSprite(block.getGreenhouseType(), facing, key.state, world, pos);
-				}
-				baker.addBlockModel(pos, sprite, 101);
-			}
 		}
+		
 	}
 }

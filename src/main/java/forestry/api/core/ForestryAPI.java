@@ -7,6 +7,7 @@ package forestry.api.core;
 
 import java.util.Set;
 
+import forestry.api.climate.IClimateFactory;
 import forestry.api.climate.IClimateManager;
 import forestry.api.farming.IFarmRegistry;
 import forestry.api.farming.ISimpleFarmLogic;
@@ -48,6 +49,11 @@ public class ForestryAPI {
 	public static IModelManager modelManager;
 
 	public static IClimateManager climateManager;
+	/**
+	 * A factory to create climate related things.
+	 * @since 5.3.4
+	 */
+	public static IClimateFactory climateFactory;
 
 	/**
 	 * A registry for register fertilizers, {@link IFarmabeles}s and {@link ISimpleFarmLogic}s

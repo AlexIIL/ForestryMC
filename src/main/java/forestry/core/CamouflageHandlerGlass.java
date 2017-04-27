@@ -22,12 +22,18 @@ import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class CamouflageHandlerGlass implements ICamouflageItemHandler {
-
+	
+	@Override
+	public boolean canRenderInLayer(BlockRenderLayer layer) {
+		return BlockRenderLayer.CUTOUT == layer;
+	}
+	
 	@Override
 	public boolean canHandle(ItemStack stack) {
 		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) == Blocks.AIR) {

@@ -2,9 +2,8 @@ package forestry.greenhouse.tiles;
 
 import java.io.IOException;
 
-import forestry.api.climate.IClimateInfo;
+import forestry.api.climate.ImmutableClimateState;
 import forestry.api.multiblock.IGreenhouseComponent;
-import forestry.core.climate.ClimateInfo;
 import forestry.core.network.PacketBufferForestry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,17 +11,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileGreenhouseClimateControl extends TileGreenhouse implements IGreenhouseComponent.ClimateControl {
 
-	private IClimateInfo climateControl;
+	private ImmutableClimateState climateControl;
 
 	public TileGreenhouseClimateControl() {
 		super();
-		climateControl = ClimateInfo.MAX;
+		climateControl = ImmutableClimateState.MAX;
 	}
 
 	@Override
 	protected void decodeDescriptionPacket(NBTTagCompound packetData) {
 		super.decodeDescriptionPacket(packetData);
-		climateControl = new ClimateInfo(packetData);
+		climateControl = new ImmutableClimateState(packetData);
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class TileGreenhouseClimateControl extends TileGreenhouse implements IGre
 
 	@Override
 	public void readFromNBT(NBTTagCompound data) {
-		climateControl = new ClimateInfo(data);
+		climateControl = new ImmutableClimateState(data);
 		super.readFromNBT(data);
 	}
 
@@ -57,16 +56,16 @@ public class TileGreenhouseClimateControl extends TileGreenhouse implements IGre
 	@SideOnly(Side.CLIENT)
 	public void readGuiData(PacketBufferForestry data) throws IOException {
 		super.readGuiData(data);
-		climateControl = new ClimateInfo(data);
+		climateControl = new ImmutableClimateState(data.readFloat(), data.readFloat());
 	}
 
 	@Override
-	public IClimateInfo getControlClimate() {
+	public ImmutableClimateState getControlClimate() {
 		return climateControl;
 	}
 
 	@Override
-	public void setControlClimate(IClimateInfo climateControl) {
+	public void setControlClimate(ImmutableClimateState climateControl) {
 		this.climateControl = climateControl;
 	}
 
